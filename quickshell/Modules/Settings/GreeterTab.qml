@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Layouts
 import Quickshell.Io
 import qs.Common
 import qs.Modals.Common
@@ -11,6 +10,9 @@ import qs.Modules.Settings.Widgets
 
 Item {
     id: root
+
+    LayoutMirroring.enabled: I18n.isRtl
+    LayoutMirroring.childrenInherit: true
 
     readonly property bool greeterFprintToggleAvailable: SettingsData.greeterFingerprintCanEnable || SettingsData.greeterEnableFprint
     readonly property bool greeterU2fToggleAvailable: SettingsData.greeterU2fCanEnable || SettingsData.greeterEnableU2f
@@ -420,6 +422,7 @@ Item {
                     color: Theme.surfaceVariantText
                     width: parent.width
                     wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 Item {
@@ -451,7 +454,7 @@ Item {
                     height: Theme.spacingM
                 }
 
-                RowLayout {
+                Flow {
                     width: parent.width
                     spacing: Theme.spacingS
 
@@ -461,10 +464,6 @@ Item {
                         horizontalPadding: Theme.spacingL
                         onClicked: root.promptGreeterActionConfirm()
                         enabled: !root.greeterInstallActionRunning && !root.greeterSyncRunning
-                    }
-
-                    Item {
-                        Layout.fillWidth: true
                     }
 
                     DankButton {
@@ -497,6 +496,7 @@ Item {
                     color: Theme.surfaceVariantText
                     width: parent.width
                     wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 SettingsToggleRow {
@@ -534,6 +534,8 @@ Item {
                     font.weight: Font.Medium
                     color: Theme.surfaceText
                     topPadding: Theme.spacingM
+                    width: parent.width
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 SettingsFontDropdownRow {
@@ -551,6 +553,8 @@ Item {
                     font.weight: Font.Medium
                     color: Theme.surfaceText
                     topPadding: Theme.spacingM
+                    width: parent.width
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 SettingsToggleRow {
@@ -585,6 +589,8 @@ Item {
                     font.weight: Font.Medium
                     color: Theme.surfaceText
                     topPadding: Theme.spacingM
+                    width: parent.width
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 SettingsDropdownRow {
@@ -610,6 +616,8 @@ Item {
                     font.weight: Font.Medium
                     color: Theme.surfaceText
                     topPadding: Theme.spacingM
+                    width: parent.width
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 StyledText {
@@ -618,6 +626,7 @@ Item {
                     color: Theme.surfaceVariantText
                     width: parent.width
                     wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 SettingsWallpaperPicker {
@@ -645,6 +654,7 @@ Item {
                     color: Theme.surfaceVariantText
                     width: parent.width
                     wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 SettingsToggleRow {
@@ -688,6 +698,7 @@ Item {
                     color: Theme.surfaceVariantText
                     width: parent.width
                     wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 StyledText {
@@ -698,6 +709,7 @@ Item {
                     linkColor: Theme.primary
                     width: parent.width
                     wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignLeft
                     onLinkActivated: url => Qt.openUrlExternally(url)
 
                     MouseArea {

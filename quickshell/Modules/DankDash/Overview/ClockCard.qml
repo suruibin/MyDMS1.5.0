@@ -18,6 +18,7 @@ Card {
             Row {
                 spacing: 0
                 anchors.horizontalCenter: parent.horizontalCenter
+                LayoutMirroring.enabled: false
 
                 StyledText {
                     text: {
@@ -57,6 +58,7 @@ Card {
             Row {
                 spacing: 0
                 anchors.horizontalCenter: parent.horizontalCenter
+                LayoutMirroring.enabled: false
 
                 StyledText {
                     text: String(systemClock?.date?.getMinutes()).padStart(2, '0').charAt(0)

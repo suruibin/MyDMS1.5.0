@@ -295,6 +295,7 @@ Item {
                     DankButtonGroup {
                         id: logoModeGroup
                         anchors.horizontalCenter: parent.horizontalCenter
+                        maximumWidth: parent.width
                         buttonPadding: parent.width < 480 ? Theme.spacingS : Theme.spacingL
                         minButtonWidth: parent.width < 480 ? 44 : 64
                         textSize: parent.width < 480 ? Theme.fontSizeSmall : Theme.fontSizeMedium
@@ -376,7 +377,9 @@ Item {
                             font.pixelSize: Theme.fontSizeMedium
                             color: SettingsData.launcherLogoCustomPath ? Theme.surfaceText : Theme.outlineButton
                             width: parent.width - Theme.spacingM * 2
+                            wrapMode: Text.NoWrap
                             elide: Text.ElideMiddle
+                            horizontalAlignment: Text.AlignLeft
                         }
                     }
 
@@ -418,6 +421,7 @@ Item {
 
                                 DankButtonGroup {
                                     id: colorModeGroup
+                                    maximumWidth: parent.parent.width - (colorPickerCircle.visible ? colorPickerCircle.width + Theme.spacingM : 0)
                                     buttonPadding: parent.parent.width < 480 ? Theme.spacingS : Theme.spacingL
                                     minButtonWidth: parent.parent.width < 480 ? 44 : 64
                                     textSize: parent.parent.width < 480 ? Theme.fontSizeSmall : Theme.fontSizeMedium
@@ -626,6 +630,7 @@ Item {
                         DankButtonGroup {
                             id: sizeGroup
                             anchors.horizontalCenter: parent.horizontalCenter
+                            maximumWidth: parent.width
                             buttonPadding: parent.width < 400 ? Theme.spacingS : Theme.spacingL
                             minButtonWidth: parent.width < 400 ? 60 : 80
                             textSize: parent.width < 400 ? Theme.fontSizeSmall : Theme.fontSizeMedium
@@ -725,6 +730,7 @@ Item {
                             DankButtonGroup {
                                 id: borderColorGroup
                                 anchors.horizontalCenter: parent.horizontalCenter
+                                maximumWidth: parent.width
                                 buttonPadding: parent.width < 400 ? Theme.spacingS : Theme.spacingL
                                 minButtonWidth: parent.width < 400 ? 50 : 70
                                 textSize: parent.width < 400 ? Theme.fontSizeSmall : Theme.fontSizeMedium

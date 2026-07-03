@@ -669,9 +669,10 @@ Item {
                             border.width: 0
 
                             Row {
-                                width: parent.width
                                 anchors.left: parent.left
+                                anchors.right: entryToggle.left
                                 anchors.leftMargin: Theme.spacingM
+                                anchors.rightMargin: Theme.spacingM
                                 anchors.verticalCenter: parent.verticalCenter
                                 spacing: Theme.spacingM
 
@@ -699,7 +700,7 @@ Item {
                                 }
 
                                 Column {
-                                    width: parent.width - 20 - Theme.spacingM - 24 - Theme.spacingM - Theme.spacingM - 60 - Theme.spacingM - 32 - Theme.spacingS
+                                    width: parent.width - 20 - 24 - Theme.spacingM * 2
                                     anchors.verticalCenter: parent.verticalCenter
                                     spacing: Theme.spacingXXS
 
@@ -709,7 +710,9 @@ Item {
                                         font.pixelSize: Theme.fontSizeMedium
                                         font.weight: Font.Medium
                                         color: modelData.hidden ? Theme.surfaceVariantText : Theme.surfaceText
+                                        maximumLineCount: 1
                                         elide: Text.ElideRight
+                                        horizontalAlignment: Text.AlignLeft
                                         opacity: modelData.hidden ? 0.6 : 1.0
                                     }
 
@@ -718,18 +721,24 @@ Item {
                                         text: modelData.hidden ? I18n.tr("Disabled") : modelData.exec
                                         font.pixelSize: Theme.fontSizeSmall
                                         color: Theme.surfaceVariantText
+                                        maximumLineCount: 1
                                         elide: Text.ElideRight
+                                        horizontalAlignment: Text.AlignLeft
                                     }
-                                }
-
-                                DankToggle {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    checked: !modelData.hidden
-                                    onToggled: checked => root.setHidden(modelData, !checked)
                                 }
                             }
 
+                            DankToggle {
+                                id: entryToggle
+                                anchors.right: entryRemoveButton.left
+                                anchors.rightMargin: Theme.spacingS
+                                anchors.verticalCenter: parent.verticalCenter
+                                checked: !modelData.hidden
+                                onToggled: checked => root.setHidden(modelData, !checked)
+                            }
+
                             DankActionButton {
+                                id: entryRemoveButton
                                 anchors.right: parent.right
                                 anchors.rightMargin: Theme.spacingS
                                 anchors.verticalCenter: parent.verticalCenter

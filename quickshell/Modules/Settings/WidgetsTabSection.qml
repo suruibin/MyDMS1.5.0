@@ -1276,6 +1276,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 anchors.fill: parent
                 anchors.margins: Theme.spacingS
@@ -1290,8 +1292,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: swapToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "swap_horiz"
@@ -1306,6 +1311,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -1343,8 +1351,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: gbToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "straighten"
@@ -1359,6 +1370,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -1413,6 +1427,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 id: contentColumn
                 anchors.fill: parent
@@ -1428,8 +1444,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: trayOverflowToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "arrow_selector_tool"
@@ -1444,6 +1463,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -1479,8 +1501,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: trayPopupLineToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "view_week"
@@ -1495,6 +1520,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -1532,8 +1560,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: trayAutoOverflowToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "responsive_layout"
@@ -1548,6 +1579,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -1583,8 +1617,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: trayMaxVisibleButtons.left
+                        anchors.rightMargin: Theme.spacingXS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "low_priority"
@@ -1599,6 +1636,7 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            maximumLineCount: 1
                         }
 
                         StyledText {
@@ -1613,6 +1651,7 @@ Column {
                     }
 
                     Row {
+                        id: trayMaxVisibleButtons
                         anchors.right: parent.right
                         anchors.rightMargin: Theme.spacingXS
                         anchors.verticalCenter: parent.verticalCenter
@@ -1677,6 +1716,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 id: kbdLayoutCtxMenuColumn
                 anchors.fill: parent
@@ -1692,8 +1733,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: kbdLayoutCtxMenuIconToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "visibility"
@@ -1708,6 +1752,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -1762,6 +1809,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 id: focusedWindowMenuColumn
                 anchors.fill: parent
@@ -1777,8 +1826,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: fwCompactToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "zoom_in"
@@ -1793,6 +1845,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -1863,8 +1918,11 @@ Column {
                         Row {
                             anchors.left: parent.left
                             anchors.leftMargin: Theme.spacingS
+                            anchors.right: fwSizeCheck.left
+                            anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: Theme.spacingS
+                            clip: true
 
                             DankIcon {
                                 name: modelData.icon
@@ -1879,10 +1937,14 @@ Column {
                                 font.weight: isSelected() ? Font.Medium : Font.Normal
                                 color: isSelected() ? Theme.primary : Theme.surfaceText
                                 anchors.verticalCenter: parent.verticalCenter
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                                width: parent.width - 18 - Theme.spacingS
                             }
                         }
 
                         DankIcon {
+                            id: fwSizeCheck
                             anchors.right: parent.right
                             anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
@@ -1931,6 +1993,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 id: diskMenuColumn
                 anchors.fill: parent
@@ -1994,8 +2058,11 @@ Column {
                         Row {
                             anchors.left: parent.left
                             anchors.leftMargin: Theme.spacingS
+                            anchors.right: diskModeCheck.left
+                            anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: Theme.spacingS
+                            clip: true
 
                             DankIcon {
                                 name: modelData.icon
@@ -2010,10 +2077,14 @@ Column {
                                 color: isSelected() ? Theme.primary : Theme.surfaceText
                                 font.weight: isSelected() ? Font.Medium : Font.Normal
                                 anchors.verticalCenter: parent.verticalCenter
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                                width: parent.width - 16 - Theme.spacingS
                             }
                         }
 
                         DankIcon {
+                            id: diskModeCheck
                             anchors.right: parent.right
                             anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
@@ -2304,6 +2375,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             function getCurrentWidgetData() {
                 const widgets = root.items || [];
                 if (controlCenterContextMenu.widgetIndex >= 0 && controlCenterContextMenu.widgetIndex < widgets.length)
@@ -2529,6 +2602,7 @@ Column {
                                                 font.weight: Font.Normal
                                                 anchors.verticalCenter: parent.verticalCenter
                                                 elide: Text.ElideRight
+                                                maximumLineCount: 1
                                                 width: parent.width - 16 - Theme.spacingS - 16 - Theme.spacingS
                                             }
                                         }
@@ -2610,6 +2684,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
 
             Column {
                 id: menuPrivacyColumn
@@ -2668,6 +2744,7 @@ Column {
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
                             elide: Text.ElideRight
+                            maximumLineCount: 1
                             width: parent.width - 16 - Theme.spacingS
                         }
                     }
@@ -2725,6 +2802,7 @@ Column {
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
                             elide: Text.ElideRight
+                            maximumLineCount: 1
                             width: parent.width - 16 - Theme.spacingS
                         }
                     }
@@ -2782,6 +2860,7 @@ Column {
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
                             elide: Text.ElideRight
+                            maximumLineCount: 1
                             width: parent.width - 16 - Theme.spacingS
                         }
                     }
@@ -2836,6 +2915,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 id: gpuMenuColumn
                 anchors.fill: parent
@@ -2945,6 +3026,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 id: batteryMenuColumn
                 anchors.fill: parent
@@ -2960,8 +3043,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: batteryPercentToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "percent"
@@ -2976,6 +3062,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 18 - Theme.spacingS
                         }
                     }
 
@@ -3014,8 +3103,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS + 18
+                        anchors.right: batteryPercentOnlyOnBatteryToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "battery_charging_full"
@@ -3030,6 +3122,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 18 - Theme.spacingS
                         }
                     }
 
@@ -3069,8 +3164,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: batteryTimeToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "schedule"
@@ -3085,6 +3183,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 18 - Theme.spacingS
                         }
                     }
 
@@ -3123,8 +3224,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS + 18
+                        anchors.right: batteryTimeOnlyOnBatteryToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "battery_charging_full"
@@ -3139,6 +3243,9 @@ Column {
                             color: Theme.surfaceText
                             font.weight: Font.Normal
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 18 - Theme.spacingS
                         }
                     }
 
@@ -3194,6 +3301,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 id: musicMenuColumn
                 anchors.fill: parent
@@ -3242,8 +3351,11 @@ Column {
                         Row {
                             anchors.left: parent.left
                             anchors.leftMargin: Theme.spacingS
+                            anchors.right: musicSizeCheck.left
+                            anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: Theme.spacingS
+                            clip: true
 
                             DankIcon {
                                 name: modelData.icon
@@ -3258,10 +3370,14 @@ Column {
                                 font.weight: isSelected() ? Font.Medium : Font.Normal
                                 color: isSelected() ? Theme.primary : Theme.surfaceText
                                 anchors.verticalCenter: parent.verticalCenter
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                                width: parent.width - 18 - Theme.spacingS
                             }
                         }
 
                         DankIcon {
+                            id: musicSizeCheck
                             anchors.right: parent.right
                             anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
@@ -3311,6 +3427,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 id: runningAppsMenuColumn
                 anchors.fill: parent
@@ -3343,8 +3461,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: raCompactToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "zoom_in"
@@ -3358,6 +3479,9 @@ Column {
                             font.pixelSize: Theme.fontSizeSmall
                             color: Theme.surfaceText
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -3395,8 +3519,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: raGroupToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "apps"
@@ -3410,6 +3537,9 @@ Column {
                             font.pixelSize: Theme.fontSizeSmall
                             color: Theme.surfaceText
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -3447,8 +3577,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: raWorkspaceToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "workspaces"
@@ -3462,6 +3595,9 @@ Column {
                             font.pixelSize: Theme.fontSizeSmall
                             color: Theme.surfaceText
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -3499,8 +3635,11 @@ Column {
                     Row {
                         anchors.left: parent.left
                         anchors.leftMargin: Theme.spacingS
+                        anchors.right: raDisplayToggle.left
+                        anchors.rightMargin: Theme.spacingS
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: Theme.spacingS
+                        clip: true
 
                         DankIcon {
                             name: "monitor"
@@ -3514,6 +3653,9 @@ Column {
                             font.pixelSize: Theme.fontSizeSmall
                             color: Theme.surfaceText
                             anchors.verticalCenter: parent.verticalCenter
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                            width: parent.width - 16 - Theme.spacingS
                         }
                     }
 
@@ -3570,6 +3712,8 @@ Column {
         }
 
         contentItem: Item {
+            LayoutMirroring.enabled: I18n.isRtl
+            LayoutMirroring.childrenInherit: true
             Column {
                 id: appsDockMenuColumn
                 anchors.fill: parent
@@ -3582,6 +3726,9 @@ Column {
                     font.weight: Font.Medium
                     color: Theme.surfaceText
                     leftPadding: Theme.spacingS
+                    rightPadding: Theme.spacingS
+                    width: parent.width
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 StyledText {
@@ -3590,6 +3737,9 @@ Column {
                     font.weight: Font.Medium
                     color: Theme.surfaceText
                     leftPadding: Theme.spacingS
+                    rightPadding: Theme.spacingS
+                    width: parent.width
+                    horizontalAlignment: Text.AlignLeft
                 }
 
                 Column {
@@ -3606,6 +3756,8 @@ Column {
                             color: Theme.surfaceText
                             anchors.verticalCenter: parent.verticalCenter
                             width: 120
+                            maximumLineCount: 1
+                            horizontalAlignment: Text.AlignLeft
                         }
 
                         Row {
@@ -3660,6 +3812,8 @@ Column {
                             color: Theme.surfaceText
                             anchors.verticalCenter: parent.verticalCenter
                             width: 120
+                            maximumLineCount: 1
+                            horizontalAlignment: Text.AlignLeft
                         }
 
                         Row {
@@ -3720,8 +3874,11 @@ Column {
                         Row {
                             anchors.left: parent.left
                             anchors.leftMargin: Theme.spacingS
+                            anchors.right: badgeToggle.left
+                            anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: Theme.spacingS
+                            clip: true
 
                             DankIcon {
                                 name: "notifications"
@@ -3736,6 +3893,9 @@ Column {
                                 color: Theme.surfaceText
                                 font.weight: Font.Normal
                                 anchors.verticalCenter: parent.verticalCenter
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                                width: parent.width - 16 - Theme.spacingS
                             }
                         }
 
@@ -3777,7 +3937,10 @@ Column {
                         font.weight: Font.Medium
                         color: Theme.surfaceText
                         leftPadding: Theme.spacingS
+                        rightPadding: Theme.spacingS
                         topPadding: Theme.spacingXS
+                        width: parent.width
+                        horizontalAlignment: Text.AlignLeft
                     }
 
                     Rectangle {
@@ -3789,8 +3952,11 @@ Column {
                         Row {
                             anchors.left: parent.left
                             anchors.leftMargin: Theme.spacingS
+                            anchors.right: hideIndicatorsToggle.left
+                            anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: Theme.spacingS
+                            clip: true
 
                             DankIcon {
                                 name: "visibility_off"
@@ -3805,6 +3971,9 @@ Column {
                                 color: Theme.surfaceText
                                 font.weight: Font.Normal
                                 anchors.verticalCenter: parent.verticalCenter
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                                width: parent.width - 16 - Theme.spacingS
                             }
                         }
 
@@ -3842,8 +4011,11 @@ Column {
                         Row {
                             anchors.left: parent.left
                             anchors.leftMargin: Theme.spacingS
+                            anchors.right: colorizeActiveToggle.left
+                            anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: Theme.spacingS
+                            clip: true
 
                             DankIcon {
                                 name: "palette"
@@ -3858,6 +4030,9 @@ Column {
                                 color: Theme.surfaceText
                                 font.weight: Font.Normal
                                 anchors.verticalCenter: parent.verticalCenter
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                                width: parent.width - 16 - Theme.spacingS
                             }
                         }
 
@@ -3898,6 +4073,8 @@ Column {
                             color: Theme.surfaceText
                             anchors.verticalCenter: parent.verticalCenter
                             width: 90
+                            maximumLineCount: 1
+                            horizontalAlignment: Text.AlignLeft
                         }
 
                         DankButtonGroup {
@@ -3941,8 +4118,11 @@ Column {
                         Row {
                             anchors.left: parent.left
                             anchors.leftMargin: Theme.spacingS
+                            anchors.right: enlargeOnHoverToggle.left
+                            anchors.rightMargin: Theme.spacingS
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: Theme.spacingS
+                            clip: true
 
                             DankIcon {
                                 name: "zoom_in"
@@ -3957,6 +4137,9 @@ Column {
                                 color: Theme.surfaceText
                                 font.weight: Font.Normal
                                 anchors.verticalCenter: parent.verticalCenter
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                                width: parent.width - 16 - Theme.spacingS
                             }
                         }
 
@@ -3996,6 +4179,8 @@ Column {
                             color: Theme.surfaceText
                             anchors.verticalCenter: parent.verticalCenter
                             width: 120
+                            maximumLineCount: 1
+                            horizontalAlignment: Text.AlignLeft
                         }
 
                         Row {
@@ -4047,6 +4232,8 @@ Column {
                             color: Theme.surfaceText
                             anchors.verticalCenter: parent.verticalCenter
                             width: 120
+                            maximumLineCount: 1
+                            horizontalAlignment: Text.AlignLeft
                         }
 
                         Row {

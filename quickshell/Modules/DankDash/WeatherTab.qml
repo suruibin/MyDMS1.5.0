@@ -382,6 +382,9 @@ Item {
                 height: dateStepperInner.height + Theme.spacingM * 2
                 width: dateStepperInner.width
 
+                LayoutMirroring.enabled: false
+                LayoutMirroring.childrenInherit: true
+
                 property var currentDate: new Date()
 
                 readonly property var changeDate: (magnitudeIndex, sign) => {

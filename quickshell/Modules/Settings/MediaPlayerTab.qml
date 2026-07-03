@@ -93,11 +93,12 @@ Item {
 
                     Column {
                         id: audioWheelScrollAmountColumn
-                        x: Theme.spacingL
-                        width: 120
+                        anchors.left: parent.left
+                        anchors.leftMargin: Theme.spacingL
                         spacing: Theme.spacingS
 
                         StyledText {
+                            anchors.left: parent.left
                             text: I18n.tr("Adjust volume per scroll indent")
                             font.pixelSize: Theme.fontSizeSmall
                             color: Theme.surfaceVariantText
@@ -106,6 +107,7 @@ Item {
                         }
 
                         DankTextField {
+                            anchors.left: parent.left
                             width: 100
                             height: 28
                             placeholderText: "5"
