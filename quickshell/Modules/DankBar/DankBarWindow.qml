@@ -663,7 +663,7 @@ PanelWindow {
 
     IdleInhibitor {
         window: barWindow
-        enabled: SessionService.idleInhibited
+        enabled: SessionService.idleInhibited || IdleService.externalInhibitActive
     }
 
     Connections {
