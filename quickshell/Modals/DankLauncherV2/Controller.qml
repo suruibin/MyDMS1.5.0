@@ -777,8 +777,6 @@ Item {
             if (isCategoryFiltered) {
                 var rawApps = AppSearchService.getAppsInCategory(appCategory);
                 for (var i = 0; i < rawApps.length; i++) {
-                    if (AppSearchService.isShadowedByCoreApp(rawApps[i]))
-                        continue;
                     allItems.push(getOrTransformApp(rawApps[i]));
                 }
                 // Also include core apps (DMS Settings etc.) that match this category
@@ -1174,8 +1172,6 @@ Item {
         var items = [];
 
         for (var i = 0; i < apps.length; i++) {
-            if (AppSearchService.isShadowedByCoreApp(apps[i]))
-                continue;
             items.push(getOrTransformApp(apps[i]));
         }
 

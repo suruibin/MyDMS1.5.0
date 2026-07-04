@@ -165,16 +165,6 @@ Singleton {
 
     readonly property string dmsLogoPath: Qt.resolvedUrl("../assets/danklogo2.svg")
 
-    // Prevent desktop entry duplicates from core apps
-    readonly property var builtInShadowDesktopIds: ["com.danklinux.dms.notepad"]
-
-    function isShadowedByCoreApp(app) {
-        if (!app)
-            return false;
-        const id = (app.id || "").replace(/\.desktop$/, "");
-        return builtInShadowDesktopIds.includes(id);
-    }
-
     readonly property var builtInPlugins: ({
             "dms_settings": {
                 id: "dms_settings",
