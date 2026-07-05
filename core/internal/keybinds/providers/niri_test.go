@@ -237,6 +237,58 @@ func TestNiriGenerateBindsContent(t *testing.T) {
 `,
 		},
 		{
+			name: "spawn with equals arg",
+			binds: map[string]*overrideBind{
+				"Mod+B": {
+					Key:    "Mod+B",
+					Action: `spawn /opt/browser --profile-directory=Default`,
+				},
+			},
+			expected: `binds {
+    Mod+B { spawn "/opt/browser" "--profile-directory=Default"; }
+}
+`,
+		},
+		{
+			name: "spawn shell command with quoted equals args",
+			binds: map[string]*overrideBind{
+				"Mod+C": {
+					Key:    "Mod+C",
+					Action: `spawn sh -c "chrome --profile-directory=Default --app=x"`,
+				},
+			},
+			expected: `binds {
+    Mod+C { spawn "sh" "-c" "chrome --profile-directory=Default --app=x"; }
+}
+`,
+		},
+		{
+			name: "spawn env assignment stays arg",
+			binds: map[string]*overrideBind{
+				"Mod+E": {
+					Key:    "Mod+E",
+					Action: `spawn env FOO=bar mycmd`,
+				},
+			},
+			expected: `binds {
+    Mod+E { spawn "env" "FOO=bar" "mycmd"; }
+}
+`,
+		},
+		{
+			name: "niri action property remains property",
+			binds: map[string]*overrideBind{
+				"Print": {
+					Key:    "Print",
+					Action: `screenshot show-pointer=false`,
+				},
+			},
+			expected: `binds {
+    Print { screenshot show-pointer=false; }
+}
+`,
+		},
+		{
 			name: "bind with allow-when-locked",
 			binds: map[string]*overrideBind{
 				"XF86AudioMute": {
