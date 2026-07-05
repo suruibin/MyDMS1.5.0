@@ -423,12 +423,14 @@ Column {
                     }
                 }
 
+                // targetValue-based direction: `active` can be stale when the behavior triggers
                 Behavior on height {
-                    enabled: true
+                    id: detailHeightBehavior
                     NumberAnimation {
-                        duration: Theme.variantDuration(Theme.popoutAnimationDuration, detailHost.active)
+                        readonly property bool growing: (detailHeightBehavior.targetValue ?? 0) >= detailHost.height
+                        duration: Theme.variantDuration(Theme.popoutAnimationDuration, growing)
                         easing.type: Easing.BezierSpline
-                        easing.bezierCurve: detailHost.active ? Theme.variantPopoutEnterCurve : Theme.variantPopoutExitCurve
+                        easing.bezierCurve: growing ? Theme.variantPopoutEnterCurve : Theme.variantPopoutExitCurve
                     }
                 }
             }
