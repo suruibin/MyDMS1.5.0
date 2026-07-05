@@ -28,6 +28,7 @@ let
         cfg.quickshell.package
         compositorPackage
         pkgs.glib # provides gdbus, used by the fprintd hardware probe in GreeterContent.qml
+        pkgs.jq # reads the user's cursor theme from settings.json in dms-greeter
       ]
     }
     ${
