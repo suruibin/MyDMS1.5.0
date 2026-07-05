@@ -23,11 +23,46 @@ Rectangle {
     color: Theme.nestedSurface
     border.color: Theme.outlineMedium
     border.width: Theme.layerOutlineWidth
+    focus: true
 
     property var bluetoothCodecModalRef: null
     property var devicesBeingPaired: new Set()
 
     signal showCodecSelector(var device)
+
+    Component.onDestruction: closeTransientSurfaces()
+    onVisibleChanged: {
+        if (!visible)
+            closeTransientSurfaces();
+    }
+
+    Connections {
+        target: PopoutService.controlCenterPopout
+        function onShouldBeVisibleChanged() {
+            const popout = PopoutService.controlCenterPopout;
+            if (!popout || !popout.shouldBeVisible)
+                root.closeTransientSurfaces();
+        }
+    }
+
+    Keys.onPressed: event => {
+        if (event.key !== Qt.Key_Escape)
+            return;
+        if (bluetoothContextMenu.visible) {
+            bluetoothContextMenu.close();
+            event.accepted = true;
+            return;
+        }
+        PopoutService.closeControlCenter();
+        event.accepted = true;
+    }
+
+    function closeTransientSurfaces() {
+        if (bluetoothContextMenu.visible)
+            bluetoothContextMenu.close();
+        if (bluetoothCodecModalRef?.modalVisible)
+            bluetoothCodecModalRef.hide();
+    }
 
     function isDeviceBeingPaired(deviceAddress) {
         return devicesBeingPaired.has(deviceAddress);
@@ -600,6 +635,8 @@ Rectangle {
         width: 150
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
+        onClosed: Qt.callLater(() => root.forceActiveFocus())
+
         property var currentDevice: null
 
         readonly property bool hasDevice: currentDevice !== null
@@ -607,10 +644,10 @@ Rectangle {
         readonly property bool showCodecOption: hasDevice && deviceConnected && BluetoothService.isAudioDevice(currentDevice)
 
         background: Rectangle {
-            color: BlurService.enabled ? Theme.surfaceContainer : Theme.withAlpha(Theme.surfaceContainer, Theme.popupTransparency)
+            color: Theme.withAlpha(Theme.surfaceContainer, BlurService.enabled ? 0.96 : Theme.popupTransparency)
             radius: Theme.cornerRadius
-            border.width: 0
-            border.color: Theme.outlineStrong
+            border.width: BlurService.enabled ? BlurService.borderWidth : 0
+            border.color: BlurService.enabled ? BlurService.borderColor : Theme.outlineStrong
         }
 
         MenuItem {

@@ -314,6 +314,7 @@ DankPopout {
         id: bluetoothDetailComponent
         BluetoothDetail {
             id: bluetoothDetail
+            bluetoothCodecModalRef: contentLoader.item ? contentLoader.item.bluetoothCodecSelector : null
             onShowCodecSelector: function (device) {
                 if (contentLoader.item && contentLoader.item.bluetoothCodecSelector) {
                     contentLoader.item.bluetoothCodecSelector.show(device);
