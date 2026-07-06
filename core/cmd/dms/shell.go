@@ -582,7 +582,11 @@ func runShellDaemon(session bool) {
 }
 
 var qsHasAnyDisplay = sync.OnceValue(func() bool {
-	out, err := exec.Command("qs", "ipc", "--help").Output()
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	cmd := exec.CommandContext(ctx, "qs", "ipc", "--help")
+	cmd.WaitDelay = 500 * time.Millisecond
+	out, err := cmd.Output()
 	if err != nil {
 		return false
 	}
@@ -642,7 +646,10 @@ func getShellIPCCompletions(args []string, _ string) []string {
 		return nil
 	}
 	cmdArgs := append(baseArgs, "show")
-	cmd := exec.Command("qs", cmdArgs...)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	cmd := exec.CommandContext(ctx, "qs", cmdArgs...)
+	cmd.WaitDelay = 500 * time.Millisecond
 	var targets ipcTargets
 
 	if output, err := cmd.Output(); err == nil {
