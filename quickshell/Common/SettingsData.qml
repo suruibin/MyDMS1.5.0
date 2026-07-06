@@ -462,7 +462,7 @@ Singleton {
     property bool clockCompactMode: false
     property int focusedWindowSize: 1
     property bool focusedWindowCompactMode: false
-    property bool focusedWindowShowIcon: false
+    property bool focusedWindowShowIcon: true
     property bool runningAppsCompactMode: true
     property int barMaxVisibleApps: 0
     property int barMaxVisibleRunningApps: 0

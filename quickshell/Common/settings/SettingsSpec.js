@@ -192,7 +192,7 @@ var SPEC = {
     clockCompactMode: { def: false },
     focusedWindowCompactMode: { def: false },
     focusedWindowSize: { def: 1 },
-    focusedWindowShowIcon: { def: false },
+    focusedWindowShowIcon: { def: true },
     runningAppsCompactMode: { def: true },
     barMaxVisibleApps: { def: 0 },
     barMaxVisibleRunningApps: { def: 0 },
