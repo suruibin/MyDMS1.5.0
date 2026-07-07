@@ -120,12 +120,18 @@ Singleton {
 
     function setMonitorScrollPosition(screenName, scrollX, scrollY) {
         var newPositions = Object.assign({}, monitorScrollPositions);
-        newPositions[screenName] = { scrollX: scrollX, scrollY: scrollY };
+        newPositions[screenName] = {
+            scrollX: scrollX,
+            scrollY: scrollY
+        };
         monitorScrollPositions = newPositions;
     }
 
     function getMonitorScrollPosition(screenName) {
-        return monitorScrollPositions[screenName] || { scrollX: 50, scrollY: 50 };
+        return monitorScrollPositions[screenName] || {
+            scrollX: 50,
+            scrollY: 50
+        };
     }
 
     function clearMonitorScrollPosition(screenName) {
@@ -208,6 +214,8 @@ Singleton {
 
     property string locale: ""
     property string timeLocale: ""
+
+    property string notepadLastMode: ""
 
     property string launcherLastMode: "all"
     property string launcherLastFileSearchType: "all"
@@ -1214,6 +1222,13 @@ Singleton {
             return;
         }
         I18n.useLocale(locale, locale.startsWith("en") ? "" : I18n.folder + "/" + locale + ".json");
+    }
+
+    function setNotepadLastMode(mode) {
+        if (notepadLastMode === mode)
+            return;
+        notepadLastMode = mode;
+        saveSettings();
     }
 
     function setLauncherLastMode(mode) {

@@ -864,7 +864,12 @@ Singleton {
         return notepadSlideouts[0];
     }
 
+    // Remembered presentation wins over the configured default until the user
+    // changes the default in settings (handled below).
+    readonly property string notepadResolvedMode: SessionData.notepadLastMode || SettingsData.notepadDefaultMode
+
     function openNotepadSlideout() {
+        SessionData.setNotepadLastMode("slideout");
         notepadPopout?.hide();
         if (notepadSlideouts.length > 0) {
             notepadSlideoutForFocusedScreen()?.show();
@@ -875,6 +880,7 @@ Singleton {
     Connections {
         target: SettingsData
         function onNotepadDefaultModeChanged() {
+            SessionData.setNotepadLastMode(SettingsData.notepadDefaultMode);
             if (SettingsData.notepadDefaultMode === "popout") {
                 var hadSlideout = false;
                 for (var i = 0; i < root.notepadSlideouts.length; i++) {
@@ -893,7 +899,7 @@ Singleton {
     }
 
     function openNotepad() {
-        if (SettingsData.notepadDefaultMode === "popout") {
+        if (notepadResolvedMode === "popout") {
             openNotepadPopout();
             return;
         }
@@ -901,7 +907,7 @@ Singleton {
     }
 
     function closeNotepad() {
-        if (SettingsData.notepadDefaultMode === "popout") {
+        if (notepadResolvedMode === "popout") {
             notepadPopout?.hide();
             return;
         }
@@ -911,7 +917,7 @@ Singleton {
     }
 
     function toggleNotepad() {
-        if (SettingsData.notepadDefaultMode === "popout") {
+        if (notepadResolvedMode === "popout") {
             toggleNotepadPopout();
             return;
         }
@@ -926,6 +932,7 @@ Singleton {
     property string _notepadPendingOpenFilePath: ""
 
     function openNotepadPopout() {
+        SessionData.setNotepadLastMode("popout");
         closeNotepadSlideouts();
         if (notepadPopout) {
             notepadPopout.show();

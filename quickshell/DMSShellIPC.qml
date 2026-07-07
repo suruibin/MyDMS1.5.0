@@ -373,7 +373,7 @@ Item {
         }
 
         function open(): string {
-            if (SettingsData.notepadDefaultMode === "popout") {
+            if (PopoutService.notepadResolvedMode === "popout") {
                 PopoutService.openNotepadPopout();
                 return "NOTEPAD_OPEN_SUCCESS";
             }
@@ -388,7 +388,7 @@ Item {
         function openFile(path: string): string {
             if (!path)
                 return open();
-            if (SettingsData.notepadDefaultMode === "popout") {
+            if (PopoutService.notepadResolvedMode === "popout") {
                 PopoutService.openNotepadPopoutWithFile(path);
                 return "NOTEPAD_OPEN_FILE_SUCCESS";
             }
@@ -402,7 +402,7 @@ Item {
         }
 
         function close(): string {
-            if (SettingsData.notepadDefaultMode === "popout") {
+            if (PopoutService.notepadResolvedMode === "popout") {
                 PopoutService.notepadPopout?.hide();
                 return "NOTEPAD_CLOSE_SUCCESS";
             }
@@ -415,7 +415,7 @@ Item {
         }
 
         function toggle(): string {
-            if (SettingsData.notepadDefaultMode === "popout") {
+            if (PopoutService.notepadResolvedMode === "popout") {
                 PopoutService.toggleNotepadPopout();
                 return "NOTEPAD_TOGGLE_SUCCESS";
             }
