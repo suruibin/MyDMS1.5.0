@@ -620,13 +620,15 @@ Item {
             id: popoutBlur
             targetWindow: contentWindow
             readonly property real s: Math.min(1, contentContainer.scaleValue)
+            readonly property real op: Math.max(0, Math.min(1, (morph.openProgress - 0.08) * 1.6))
+            readonly property real visibleScale: s * op
             readonly property bool revealClipActive: root.fluidStandaloneActive
 
             // Blur tracks the surface's scaled rect, matching the connected backend
-            blurX: revealClipActive ? contentContainer.x : contentContainer.x + contentContainer.width * (1 - s) * 0.5 + Theme.snap(contentContainer.animX, root.dpr)
-            blurY: revealClipActive ? contentContainer.y : contentContainer.y + contentContainer.height * (1 - s) * 0.5 + Theme.snap(contentContainer.animY, root.dpr)
-            blurWidth: root.shouldBeVisible ? (revealClipActive ? contentContainer.width : contentContainer.width * s) : 0
-            blurHeight: root.shouldBeVisible ? (revealClipActive ? contentContainer.height : contentContainer.height * s) : 0
+            blurX: revealClipActive ? contentContainer.x : contentContainer.x + contentContainer.width * (1 - visibleScale) * 0.5 + Theme.snap(contentContainer.animX, root.dpr)
+            blurY: revealClipActive ? contentContainer.y : contentContainer.y + contentContainer.height * (1 - visibleScale) * 0.5 + Theme.snap(contentContainer.animY, root.dpr)
+            blurWidth: root.shouldBeVisible ? (revealClipActive ? contentContainer.width : contentContainer.width * visibleScale) : 0
+            blurHeight: root.shouldBeVisible ? (revealClipActive ? contentContainer.height : contentContainer.height * visibleScale) : 0
             blurRadius: Theme.cornerRadius
             clipEnabled: revealClipActive
             clipX: contentContainer.x + contentContainer.revealX
@@ -742,8 +744,7 @@ Item {
             QtObject {
                 id: morph
                 property real openProgress: 0
-                onOpenProgressChanged: if (root.fluidStandaloneActive)
-                    root._kickBlurCommit()
+                onOpenProgressChanged: root._kickBlurCommit()
                 Behavior on openProgress {
                     enabled: root.animationsEnabled
                     NumberAnimation {

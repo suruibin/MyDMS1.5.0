@@ -82,6 +82,12 @@ Item {
     readonly property real windowWidth: alignedWidth + contentX + shadowPad
     readonly property real windowHeight: alignedHeight + contentY + shadowPad
 
+    onAlignedXChanged: _kickBlurCommit()
+    onAlignedYChanged: _kickBlurCommit()
+    onAlignedWidthChanged: _kickBlurCommit()
+    onAlignedHeightChanged: _kickBlurCommit()
+    onContentVisibleChanged: _kickBlurCommit()
+
     readonly property color backgroundColor: Theme.withAlpha(Theme.surfaceContainer, Theme.popupTransparency)
     readonly property bool useBackgroundDarken: !FrameTransitionState.effectiveFrameEnabled && SettingsData.modalDarkenBackground
     readonly property bool useSingleWindow: CompositorService.isHyprland || useBackgroundDarken
@@ -112,6 +118,11 @@ Item {
     readonly property int borderWidth: SettingsData.dankLauncherV2BorderEnabled ? SettingsData.dankLauncherV2BorderThickness : 0
 
     signal dialogClosed
+
+    function _kickBlurCommit() {
+        if (typeof launcherWindow.update === "function")
+            launcherWindow.update();
+    }
 
     function _ensureContentLoadedAndInitialize(query, mode) {
         _pendingQuery = query || "";
@@ -366,11 +377,13 @@ Item {
         WindowBlur {
             targetWindow: launcherWindow
             readonly property real s: Math.min(1, modalContainer.publishedScale)
+            readonly property real op: Math.max(0, Math.min(1, (modalContainer.opacity - 0.06) * 2))
+            readonly property real visibleScale: s * op
             // Blur tracks the surface's scaled rect
-            blurX: modalContainer.x + modalContainer.width * (1 - s) * 0.5
-            blurY: modalContainer.y + modalContainer.height * (1 - s) * 0.5
-            blurWidth: contentVisible ? modalContainer.width * s : 0
-            blurHeight: contentVisible ? modalContainer.height * s : 0
+            blurX: modalContainer.x + modalContainer.width * (1 - visibleScale) * 0.5
+            blurY: modalContainer.y + modalContainer.height * (1 - visibleScale) * 0.5
+            blurWidth: contentVisible ? modalContainer.width * visibleScale : 0
+            blurHeight: contentVisible ? modalContainer.height * visibleScale : 0
             blurRadius: root.cornerRadius
         }
 
@@ -460,6 +473,8 @@ Item {
             opacity: contentVisible ? 1 : 0
             scale: contentVisible ? 1 : 0.96
             transformOrigin: Item.Center
+            onOpacityChanged: root._kickBlurCommit()
+            onPublishedScaleChanged: root._kickBlurCommit()
 
             Behavior on opacity {
                 NumberAnimation {
