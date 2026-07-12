@@ -43,7 +43,7 @@ DankMaterialShell/
 └── flake.nix           # Nix flake for declarative installation
 ```
 
-## See it in Action
+## 功能截图
 
 <div align="center">
 
