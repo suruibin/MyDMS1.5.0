@@ -21,9 +21,9 @@ Item {
         desktopAppsList = appList.filter((a) => a.isDesktop);
     }
     property string homeDir: Paths.strip(StandardPaths.writableLocation(StandardPaths.HomeLocation))
-    property string iconCacheDir: homeDir + "/Software/AppIcon"
-    property var cachedIcons: ({})
     property string configDir: Paths.strip(StandardPaths.writableLocation(StandardPaths.ConfigLocation)) + "/DankMaterialShell"
+    property string iconCacheDir: configDir + "/appicons"
+    property var cachedIcons: ({})
     property string savedAppsFile: configDir + "/desktop_apps.json"
     property string desktopCacheFile: configDir + "/desktop_cache.json"
     property bool initialized: false

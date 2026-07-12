@@ -60,7 +60,7 @@ DankDash 新增「程序」Tab，集中管理 AppImage 和桌面应用：
 
 - **AppImage 管理**: 自动扫描 `~/Software/*.AppImage`，网格展示，点击启动
 - **桌面应用管理**: 点 `+` 按钮从系统 `.desktop` 文件中选取添加，支持删除
-- **智能图标匹配**: 自动从 AppImage 中提取图标（递归搜索 `*.png`/`*.svg`/`.DirIcon`），缓存在 `~/Software/AppIcon/`
+- **智能图标匹配**: 自动从 AppImage 中提取图标（递归搜索 `*.png`/`*.svg`/`.DirIcon`），缓存在 `~/.config/DankMaterialShell/appicons/`
 - **健壮的名称解析**: 智能剥离版本号/架构后缀（`-x86_64`、`_amd64`、`-linux-amd64` 等），首字母大写显示
 - **容错图标匹配**: 支持前缀匹配、归一化匹配（忽略 `.`/`-_` 分隔符），优先使用图标文件名作为显示名
 
