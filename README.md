@@ -103,6 +103,30 @@ Lock screen, idle detection, auto-lock/suspend with separate AC/battery settings
 **Plugin System**
 Extend functionality with the [plugin registry](https://plugins.danklinux.com).
 
+## 自定义增强功能
+
+> 以下功能为 [MyDMS1.5.0](https://github.com/suruibin/MyDMS1.5.0) 在原始 DMS v1.6-beta 基础上移植的自定义增强。
+
+### 📱 程序面板 (AppDrawer)
+
+DankDash 新增「程序」Tab，集中管理 AppImage 和桌面应用：
+
+- **AppImage 管理**: 自动扫描 `~/Software/*.AppImage`，网格展示，点击启动
+- **桌面应用管理**: 点 `+` 按钮从系统 `.desktop` 文件中选取添加，支持删除
+- **智能图标匹配**: 自动从 AppImage 中提取图标（递归搜索 `*.png`/`*.svg`/`.DirIcon`），缓存在 `~/Software/AppIcon/`
+- **健壮的名称解析**: 智能剥离版本号/架构后缀（`-x86_64`、`_amd64`、`-linux-amd64` 等），首字母大写显示
+- **容错图标匹配**: 支持前缀匹配、归一化匹配（忽略 `.`/`-_` 分隔符），优先使用图标文件名作为显示名
+
+### 🎵 cnmplayer 快捷入口
+
+Media 面板右上角新增 cnmplayer 一键启动按钮（kitty 终端），点击即开。
+
+### 🖼️ 壁纸滚轮翻页
+
+壁纸选择面板支持鼠标滚轮翻页，带累积阈值（200px）防误触。
+
+---
+
 ## Supported Compositors
 
 Works best with [niri](https://github.com/YaLTeR/niri), [Hyprland](https://hyprland.org/), [Sway](https://swaywm.org/), [MangoWC](https://github.com/DreamMaoMao/mangowc), [labwc](https://labwc.github.io/), [Scroll](https://github.com/dawsers/scroll), and [Miracle WM](https://github.com/miracle-wm-org/miracle-wm) with full workspace switching, overview integration, and monitor management. Other Wayland compositors work with reduced features.
