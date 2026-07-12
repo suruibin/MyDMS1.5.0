@@ -154,7 +154,8 @@ Item {
                 "    REAL_FILE=$(readlink -f \"$icon\" 2>/dev/null || echo \"$icon\"); " +
                 "    if [ -f \"$REAL_FILE\" ]; then " +
                 "      EXT=\"${REAL_FILE##*.}\"; " +
-                "      cp \"$REAL_FILE\" '" + iconCacheDir + "/" + appName + ".$EXT' 2>/dev/null && FOUND_ICON=1 && break; " +
+                "      case \"$EXT\" in png|svg|jpg|jpeg|ico|xpm) ;; *) EXT=png ;; esac; " +
+                "      cp \"$REAL_FILE\" \"" + iconCacheDir + "/" + appName + ".$EXT\" 2>/dev/null && FOUND_ICON=1 && break; " +
                 "    fi; " +
                 "  done; " +
                 "fi; " +
