@@ -37,6 +37,11 @@ Item {
                 "text": I18n.tr("Weather"),
                 "description": SettingsData.weatherEnabled ? I18n.tr("Forecast and conditions") : I18n.tr("Hidden until weather is enabled")
             },
+            "programs": {
+                "icon": "apps",
+                "text": I18n.tr("Programs"),
+                "description": I18n.tr("AppImage and desktop application launcher")
+            },
             "settings": {
                 "icon": "settings",
                 "text": I18n.tr("Settings"),
