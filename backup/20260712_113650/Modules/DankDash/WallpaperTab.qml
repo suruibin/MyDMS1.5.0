@@ -36,7 +36,6 @@ Item {
     property bool sortAscending: true
     // Forces the page grid to rebuild when the folder model reorders in place.
     property int gridRevision: 0
-    property real accumulatedWheelDelta: 0
 
     signal requestTabChange(int newIndex)
 
@@ -470,30 +469,6 @@ Item {
                         if (pager.currentIndex !== root.currentPage) {
                             pager.currentIndex = root.currentPage;
                         }
-                    }
-                }
-
-                // Wheel scrolling for wallpaper page navigation
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.NoButton
-                    onWheel: {
-                        const threshold = 200;
-                        root.accumulatedWheelDelta += wheel.angleDelta.y;
-
-                        if (Math.abs(root.accumulatedWheelDelta) >= threshold) {
-                            if (root.accumulatedWheelDelta > 0) {
-                                if (root.currentPage > 0) {
-                                    root.currentPage--;
-                                }
-                            } else {
-                                if (root.currentPage < root.totalPages - 1) {
-                                    root.currentPage++;
-                                }
-                            }
-                            root.accumulatedWheelDelta = 0;
-                        }
-                        wheel.accepted = true;
                     }
                 }
 

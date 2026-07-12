@@ -455,7 +455,6 @@ Singleton {
     property bool scrollTitleEnabled: true
     property bool mediaAdaptiveWidthEnabled: true
     property bool audioVisualizerEnabled: true
-    property bool mediaUseAlbumArtAccent: false
     property string audioScrollMode: "volume"
     property int audioWheelScrollAmount: 5
     property bool audioDeviceScrollVolumeEnabled: false
@@ -541,7 +540,7 @@ Singleton {
     property bool useAutoLocation: false
     property bool weatherEnabled: true
 
-    readonly property var _dashTabIds: ["overview", "media", "wallpaper", "weather", "programs", "settings"]
+    readonly property var _dashTabIds: ["overview", "media", "wallpaper", "weather", "settings"]
     readonly property var _dashTabsDefault: [
         {
             "id": "overview",
@@ -553,10 +552,6 @@ Singleton {
         },
         {
             "id": "wallpaper",
-            "enabled": true
-        },
-        {
-            "id": "programs",
             "enabled": true
         },
         {

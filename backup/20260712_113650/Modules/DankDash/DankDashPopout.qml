@@ -25,10 +25,6 @@ DankPopout {
                 "icon": "wallpaper",
                 "text": I18n.tr("Wallpapers")
             },
-            "programs": {
-                "icon": "apps",
-                "text": I18n.tr("Programs", "程序列表")
-            },
             "weather": {
                 "icon": "wb_sunny",
                 "text": I18n.tr("Weather")
@@ -313,13 +309,6 @@ DankPopout {
                         return;
                     }
                 }
-
-                if (root.currentTabId === "programs" && programsLoader.item?.handleKeyEvent) {
-                    if (programsLoader.item.handleKeyEvent(event)) {
-                        event.accepted = true;
-                        return;
-                    }
-                }
             }
 
             Column {
@@ -381,8 +370,6 @@ DankPopout {
                             return mediaLoader.item?.implicitHeight ?? 410;
                         if (root.currentTabId === "wallpaper")
                             return wallpaperLoader.item?.implicitHeight ?? 410;
-                        if (root.currentTabId === "programs")
-                            return programsLoader.item?.implicitHeight ?? 410;
                         if (root.currentTabId === "weather")
                             return weatherLoader.item?.implicitHeight ?? 410;
                         return 410;
@@ -395,8 +382,6 @@ DankPopout {
                             return mediaLoader.item;
                         if (root.currentTabId === "wallpaper")
                             return wallpaperLoader.item;
-                        if (root.currentTabId === "programs")
-                            return programsLoader.item;
                         if (root.currentTabId === "weather")
                             return weatherLoader.item;
                         return null;
@@ -481,17 +466,6 @@ DankPopout {
                         anchors.centerIn: parent
                         size: 40
                         visible: (wallpaperLoader.active && wallpaperLoader.status === Loader.Loading) || (mediaLoader.active && mediaLoader.status === Loader.Loading) || (weatherLoader.active && weatherLoader.status === Loader.Loading)
-                    }
-
-                    Loader {
-                        id: programsLoader
-                        anchors.fill: parent
-                        active: root.currentTabId === "programs"
-                        visible: active
-                        asynchronous: true
-                        sourceComponent: Component {
-                            AppDrawer {}
-                        }
                     }
 
                     Loader {

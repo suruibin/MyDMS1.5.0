@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
-import Quickshell.Io
 import Quickshell.Services.Mpris
 import Quickshell.Widgets
 import qs.Common
@@ -48,21 +47,7 @@ Item {
         playersExpanded = false;
     }
 
-    function launchCnmplayer() {
-        Proc.runCommand(
-            "cnmplayer-launch",
-            ["sh", "-c", "nohup kitty --class cnmplayer -e cnmplayer > /dev/null 2>&1 & disown"],
-            function(output, exitCode) {
-                console.log("cnmplayer launch result - Exit code:", exitCode);
-            },
-            0,
-            Proc.noTimeout
-        );
-    }
 
-    DankTooltipV2 {
-        id: sharedTooltip
-    }
 
     readonly property bool isRightEdge: {
         if (barPosition === SettingsData.Position.Right)
@@ -1002,44 +987,4 @@ Item {
             }
         }
     }
-
-    Rectangle {
-        id: cnmplayerButton
-        width: 40
-        height: 40
-        radius: 20
-        x: isRightEdge ? Theme.spacingM : parent.width - 40 - Theme.spacingM
-        y: 295
-        color: cnmplayerArea.containsMouse ? Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.2) : "transparent"
-        border.color: Qt.rgba(Theme.outline.r, Theme.outline.g, Theme.outline.b, 0.3)
-        border.width: 1
-        z: 100
-
-        DankIcon {
-            anchors.centerIn: parent
-            name: "music_note"
-            size: 18
-            color: Theme.surfaceText
-        }
-
-        MouseArea {
-            id: cnmplayerArea
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                launchCnmplayer();
-            }
-            onEntered: {
-                dropdownButtonEntered();
-                sharedTooltip.show("cnmplayer", cnmplayerButton, 0, 0, isRightEdge ? "right" : "left");
-            }
-            onExited: {
-                sharedTooltip.hide();
-                dropdownButtonExited();
-            }
-        }
-    }
 }
-
-

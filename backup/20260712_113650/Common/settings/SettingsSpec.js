@@ -185,7 +185,6 @@ var SPEC = {
     scrollTitleEnabled: { def: true },
     mediaAdaptiveWidthEnabled: { def: true },
     audioVisualizerEnabled: { def: true },
-    mediaUseAlbumArtAccent: { def: false },
     audioScrollMode: { def: "volume" },
     audioWheelScrollAmount: { def: 5 },
     audioDeviceScrollVolumeEnabled: { def: false },
@@ -270,7 +269,7 @@ var SPEC = {
 
     useAutoLocation: { def: false },
     weatherEnabled: { def: true },
-    dashTabs: { def: [{ id: "overview", enabled: true }, { id: "media", enabled: true }, { id: "wallpaper", enabled: true }, { id: "programs", enabled: true }, { id: "weather", enabled: true }, { id: "settings", enabled: true }] },
+    dashTabs: { def: [{ id: "overview", enabled: true }, { id: "media", enabled: true }, { id: "wallpaper", enabled: true }, { id: "weather", enabled: true }, { id: "settings", enabled: true }] },
 
     networkPreference: { def: "auto" },
 
