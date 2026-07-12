@@ -117,13 +117,28 @@ DankDash 新增「程序」Tab，集中管理 AppImage 和桌面应用：
 - **健壮的名称解析**: 智能剥离版本号/架构后缀（`-x86_64`、`_amd64`、`-linux-amd64` 等），首字母大写显示
 - **容错图标匹配**: 支持前缀匹配、归一化匹配（忽略 `.`/`-_` 分隔符），优先使用图标文件名作为显示名
 
+**修改文件：**
+| 文件 | 改动 |
+|---|---|
+| `quickshell/Modules/DankDash/AppDrawer.qml` | **新增** — 核心组件，应用扫描/图标提取/名称解析全部逻辑 |
+| `quickshell/Modules/DankDash/DankDashPopout.qml` | 注册 programs tab、Loader、键盘导航 |
+| `quickshell/Common/SettingsData.qml` | `_dashTabIds` 和 `_dashTabsDefault` 添加 programs |
+| `quickshell/Common/settings/SettingsSpec.js` | `dashTabs` 默认配置添加 programs |
+| `quickshell/Modules/Settings/DankDashTab.qml` | 设置面板中 programs 的展示定义 |
+| `quickshell/translations/en.json` | Programs 英文翻译 |
+| `quickshell/translations/poexports/zh_CN.json` | Programs 中文翻译 |
+
 ### 🎵 cnmplayer 快捷入口
 
 Media 面板右上角新增 cnmplayer 一键启动按钮（kitty 终端），点击即开。
 
+**修改文件：** `quickshell/Modules/DankDash/MediaPlayerTab.qml` — 新增 `launchCnmplayer()` 函数和圆形按钮
+
 ### 🖼️ 壁纸滚轮翻页
 
 壁纸选择面板支持鼠标滚轮翻页，带累积阈值（200px）防误触。
+
+**修改文件：** `quickshell/Modules/DankDash/WallpaperTab.qml` — 新增 `accumulatedWheelDelta` 属性和滚轮事件处理
 
 ---
 
