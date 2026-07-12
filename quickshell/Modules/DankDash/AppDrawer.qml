@@ -27,8 +27,15 @@ Item {
     property string savedAppsFile: configDir + "/desktop_apps.json"
     property string desktopCacheFile: configDir + "/desktop_cache.json"
     property bool initialized: false
+    property int iconSize: 36
+    property string iconSizeFile: configDir + "/appdrawer_iconsize.json"
 
-    function findIconFile(appName) {
+    // Cell height adapts to icon size with room for text + padding
+    readonly property int _cellHeight: Math.round(iconSize * 2.0 + 30)
+    // Columns shrink with icon size but stay between 4 and 8
+    readonly property int _columns: Math.max(4, Math.min(8, Math.round(700 / (iconSize + 16))))
+    // Source image resolution = 2x icon for retina
+    readonly property int _sourceSize: iconSize * 2
         const lowerName = appName.toLowerCase();
         if (cachedIcons[lowerName]) {
             return cachedIcons[lowerName];
@@ -281,12 +288,39 @@ Item {
         }
     }
 
+    function loadIconSize() {
+        Proc.runCommand(
+            "load-iconsize",
+            ["sh", "-c", "cat '" + iconSizeFile + "' 2>/dev/null || echo '36'"],
+            (output, exitCode) => {
+                const val = parseInt(output.trim());
+                if (!isNaN(val) && val >= 20 && val <= 64)
+                    iconSize = val;
+            },
+            0,
+            3000
+        );
+    }
+
+    function saveIconSize() {
+        Proc.runCommand(
+            "save-iconsize",
+            ["sh", "-c", "mkdir -p '" + configDir + "' && echo '" + iconSize + "' > '" + iconSizeFile + "'"],
+            (output, exitCode) => {},
+            0,
+            3000
+        );
+    }
+
     Component.onCompleted: {
+        loadIconSize();
         if (visible) {
             initialized = true;
             scanApps();
         }
     }
+
+    onIconSizeChanged: saveIconSize()
 
     onVisibleChanged: {
         if (visible && !initialized) {
@@ -363,21 +397,44 @@ Item {
                 spacing: Theme.spacingXS
                 visible: appImageList.count > 0
 
-                StyledText {
-                    text: I18n.tr("AppImages") + " (" + appImageList.count + ")"
-                    font.pixelSize: 12
-                    font.weight: Font.Medium
-                    color: Theme.surfaceVariantText
-                    leftPadding: Theme.spacingXS
+                Row {
+                    width: parent.width
+                    height: 20
+
+                    StyledText {
+                        text: I18n.tr("AppImages") + " (" + appImageList.count + ")"
+                        font.pixelSize: 12
+                        font.weight: Font.Medium
+                        color: Theme.surfaceVariantText
+                        leftPadding: Theme.spacingXS
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    Item { width: 1; height: 1 }
+
+                    DankActionButton {
+                        width: 20
+                        height: 20
+                        circular: false
+                        iconName: "format_size"
+                        iconSize: 14
+                        iconColor: Theme.surfaceVariantText
+                        anchors.verticalCenter: parent.verticalCenter
+                        onClicked: {
+                            const sizes = [28, 36, 48];
+                            const idx = sizes.indexOf(iconSize);
+                            iconSize = sizes[(idx + 1) % sizes.length];
+                        }
+                    }
                 }
 
                 GridView {
                     id: appImageList
                     width: parent.width
-                    height: Math.ceil(count / 6) * 110
+                    height: Math.ceil(count / root._columns) * root._cellHeight
                     clip: true
-                    cellWidth: width / 6
-                    cellHeight: 110
+                    cellWidth: width / root._columns
+                    cellHeight: root._cellHeight
                     model: appImageApps
 
                     delegate: Item {
@@ -401,8 +458,8 @@ Item {
                                 Item {
                                     id: appIconContainer1
                                     anchors.horizontalCenter: parent.horizontalCenter
-                                    width: 48
-                                    height: 48
+                                    width: root.iconSize
+                                    height: root.iconSize
                                     property bool iconLoaded: false
 
                                     Image {
@@ -412,8 +469,8 @@ Item {
                                         smooth: true
                                         mipmap: true
                                         asynchronous: true
-                                        sourceSize.width: 96
-                                        sourceSize.height: 96
+                                        sourceSize.width: root._sourceSize
+                                        sourceSize.height: root._sourceSize
                                         fillMode: Image.PreserveAspectFit
 
                                         onStatusChanged: {
@@ -428,7 +485,7 @@ Item {
                                     DankIcon {
                                         anchors.centerIn: parent
                                         name: "application-x-executable"
-                                        size: 48
+                                        size: root.iconSize
                                         color: Theme.primary
                                         visible: !appIconContainer1.iconLoaded
                                     }
@@ -437,7 +494,7 @@ Item {
                                 StyledText {
                                     width: parent.width
                                     text: modelData.name
-                                    font.pixelSize: 11
+                                    font.pixelSize: Math.min(11, Math.round(root.iconSize * 0.3))
                                     color: Theme.surfaceText
                                     opacity: 0.8
                                     elide: Text.ElideMiddle
@@ -514,15 +571,32 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                         onClicked: addDesktopApps()
                     }
+
+                    Item { width: Theme.spacingM; height: 1 }
+
+                    DankActionButton {
+                        width: 28
+                        height: 28
+                        circular: false
+                        iconName: "format_size"
+                        iconSize: 16
+                        iconColor: Theme.surfaceText
+                        anchors.verticalCenter: parent.verticalCenter
+                        onClicked: {
+                            const sizes = [28, 36, 48];
+                            const idx = sizes.indexOf(iconSize);
+                            iconSize = sizes[(idx + 1) % sizes.length];
+                        }
+                    }
                 }
 
                 GridView {
                     id: desktopListGrid
                     width: parent.width
-                    height: Math.ceil(count / 6) * 110
+                    height: Math.ceil(count / root._columns) * root._cellHeight
                     clip: true
-                    cellWidth: width / 6
-                    cellHeight: 110
+                    cellWidth: width / root._columns
+                    cellHeight: root._cellHeight
                     model: desktopAppsList
 
                     delegate: Item {
@@ -546,8 +620,8 @@ Item {
                                 Item {
                                     id: appIconContainer2
                                     anchors.horizontalCenter: parent.horizontalCenter
-                                    width: 48
-                                    height: 48
+                                    width: root.iconSize
+                                    height: root.iconSize
                                     property bool iconLoaded: false
 
                                     IconImage {
@@ -557,9 +631,9 @@ Item {
                                         smooth: true
                                         mipmap: true
                                         asynchronous: true
-                                        implicitSize: 96
-                                        backer.sourceSize.width: 96
-                                        backer.sourceSize.height: 96
+                                        implicitSize: root._sourceSize
+                                        backer.sourceSize.width: root._sourceSize
+                                        backer.sourceSize.height: root._sourceSize
 
                                         onStatusChanged: {
                                             if (status === Image.Ready) {
@@ -573,7 +647,7 @@ Item {
                                     DankIcon {
                                         anchors.centerIn: parent
                                         name: modelData.iconName || "application-desktop"
-                                        size: 48
+                                        size: root.iconSize
                                         color: Theme.primary
                                         visible: !appIconContainer2.iconLoaded
                                     }
@@ -582,7 +656,7 @@ Item {
                                 StyledText {
                                     width: parent.width
                                     text: modelData.name
-                                    font.pixelSize: 11
+                                    font.pixelSize: Math.min(11, Math.round(root.iconSize * 0.3))
                                     color: Theme.surfaceText
                                     opacity: 0.8
                                     elide: Text.ElideMiddle

@@ -120,7 +120,7 @@ DankDash 新增「程序」Tab，集中管理 AppImage 和桌面应用：
 **修改文件：**
 | 文件 | 改动 |
 |---|---|
-| `quickshell/Modules/DankDash/AppDrawer.qml` | **新增** — 核心组件，应用扫描/图标提取/名称解析全部逻辑 |
+| `quickshell/Modules/DankDash/AppDrawer.qml` | **新增** — 核心组件，应用扫描/图标提取/名称解析/图标大小调节全部逻辑 |
 | `quickshell/Modules/DankDash/DankDashPopout.qml` | 注册 programs tab、Loader、键盘导航 |
 | `quickshell/Common/SettingsData.qml` | `_dashTabIds` 和 `_dashTabsDefault` 添加 programs |
 | `quickshell/Common/settings/SettingsSpec.js` | `dashTabs` 默认配置添加 programs |
