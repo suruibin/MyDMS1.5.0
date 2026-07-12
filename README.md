@@ -47,61 +47,11 @@ DankMaterialShell/
 
 <div align="center">
 
-https://github.com/user-attachments/assets/1200a739-7770-4601-8b85-695ca527819a
+screenshots.png
 
 </div>
 
-<details><summary><strong>More Screenshots</strong></summary>
 
-<div align="center">
-
-<img src="https://github.com/user-attachments/assets/203a9678-c3b7-4720-bb97-853a511ac5c8" width="600" alt="Desktop" />
-
-<img src="https://github.com/user-attachments/assets/a937cf35-a43b-4558-8c39-5694ff5fcac4" width="600" alt="Dashboard" />
-
-<img src="https://github.com/user-attachments/assets/2da00ea1-8921-4473-a2a9-44a44535a822" width="450" alt="Launcher" />
-
-<img src="https://github.com/user-attachments/assets/732c30de-5f4a-4a2b-a995-c8ab656cecd5" width="600" alt="Control Center" />
-
-</div>
-
-</details>
-
-## Installation
-
-```bash
-curl -fsSL https://install.danklinux.com | sh
-```
-
-One command installs DMS and all dependencies on Arch, Fedora, Debian, Ubuntu, openSUSE, or Gentoo.
-
-**[Manual installation guide](https://danklinux.com/docs/dankmaterialshell/installation)**
-
-## Features
-
-**Dynamic Theming**
-Wallpaper-based color schemes that automatically theme GTK, Qt, terminals, editors (vscode, vscodium), and more using [matugen](https://github.com/InioX/matugen) and dank16.
-
-**System Monitoring**
-Real-time CPU, RAM, GPU metrics and temperatures with [dgop](https://github.com/AvengeMedia/dgop). Process list with search and management.
-
-**Powerful Launcher**
-Spotlight-style search for applications, files ([dsearch](https://github.com/AvengeMedia/danksearch)), emojis, running windows, calculator, and commands. Extensible with plugins.
-
-**Control Center**
-Unified interface for network, Bluetooth, audio devices, display settings, and night mode.
-
-**Smart Notifications**
-Notification center with grouping, rich text support, and keyboard navigation.
-
-**Media Integration**
-MPRIS player controls, calendar sync, weather widgets, and clipboard history with image previews.
-
-**Session Management**
-Lock screen, idle detection, auto-lock/suspend with separate AC/battery settings, and greeter support.
-
-**Plugin System**
-Extend functionality with the [plugin registry](https://plugins.danklinux.com).
 
 ## 自定义增强功能
 

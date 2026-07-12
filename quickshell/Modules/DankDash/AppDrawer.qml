@@ -36,7 +36,9 @@ Item {
     readonly property int _columns: Math.max(4, Math.min(8, Math.round(700 / (iconSize + 16))))
     // Source image resolution = 2x icon for retina
     readonly property int _sourceSize: iconSize * 2
-        const lowerName = appName.toLowerCase();
+
+    function findIconFile(appName) {
+        var lowerName = appName.toLowerCase();
         if (cachedIcons[lowerName]) {
             return cachedIcons[lowerName];
         }
@@ -48,7 +50,7 @@ Item {
         // Try progressively stripping trailing segments (separated by - or _)
         var current = stripped;
         while (true) {
-            const lastSep = Math.max(current.lastIndexOf("-"), current.lastIndexOf("_"));
+            var lastSep = Math.max(current.lastIndexOf("-"), current.lastIndexOf("_"));
             if (lastSep <= 0) break;
             current = current.substring(0, lastSep);
             if (cachedIcons[current]) {
@@ -56,9 +58,9 @@ Item {
             }
         }
         // Normalize: remove dots and separators, then try prefix match
-        const normalized = lowerName.replace(/[.\-_\s]+/g, "");
+        var normalized = lowerName.replace(/[.\-_\s]+/g, "");
         for (var key in cachedIcons) {
-            const keyNorm = key.replace(/[.\-_\s]+/g, "");
+            var keyNorm = key.replace(/[.\-_\s]+/g, "");
             if (normalized.startsWith(keyNorm) || keyNorm.startsWith(normalized)) {
                 return cachedIcons[key];
             }
@@ -73,7 +75,7 @@ Item {
     }
 
     function getIconPath(appName) {
-        const found = findIconFile(appName);
+        var found = findIconFile(appName);
         if (found) {
             return found;
         }
@@ -116,9 +118,9 @@ Item {
             ["sh", "-c", "ls -1 '" + iconCacheDir + "' 2>/dev/null || true"],
             function(output, exitCode) {
                 if (exitCode === 0 && output && output.trim().length > 0) {
-                    const files = output.trim().split("\n").filter(f => f.length > 0);
+                    var files = output.trim().split("\n").filter(f => f.length > 0);
                     for (let i = 0; i < files.length; i++) {
-                        const name = files[i].replace(/\.(png|svg)$/i, "").toLowerCase();
+                        var name = files[i].replace(/\.(png|svg)$/i, "").toLowerCase();
                         cachedIcons[name] = iconCacheDir + "/" + files[i];
                     }
                 }
@@ -130,7 +132,7 @@ Item {
     }
 
     function extractAppImageIcon(appPath, appName, callback) {
-        const tmpDir = iconCacheDir + "/tmp-" + appName;
+        var tmpDir = iconCacheDir + "/tmp-" + appName;
 
         Proc.runCommand(
             "extract-icon-" + appName,
@@ -161,7 +163,7 @@ Item {
             ],
             function(output, exitCode) {
                 if (output && output.trim().length > 0 && !output.includes("failed")) {
-                    const lowerName = appName.toLowerCase();
+                    var lowerName = appName.toLowerCase();
                     cachedIcons[lowerName] = output.trim();
                 }
                 if (callback) callback(exitCode);
@@ -177,24 +179,24 @@ Item {
                 "scan-appimages",
                 ["sh", "-c", "ls -1 ~/Software/*.AppImage 2>/dev/null || true"],
                 function(output, exitCode) {
-                    const newList = [];
+                    var newList = [];
 
                     if (exitCode === 0 && output && output.trim().length > 0) {
-                        const files = output.trim().split("\n").filter(f => f.length > 0);
-                        const needExtract = [];
+                        var files = output.trim().split("\n").filter(f => f.length > 0);
+                        var needExtract = [];
 
                         for (let i = 0; i < files.length; i++) {
-                            const filePath = files[i];
-                            const filename = filePath.split("/").pop();
-                            const appName = getAppNameFromFilename(filename);
-                            const displayName = getDisplayName(appName);
-                            const iconPath = getIconPath(appName);
-                            const iconFile = findIconFile(appName);
-                            const hasIcon = iconFile !== null;
+                            var filePath = files[i];
+                            var filename = filePath.split("/").pop();
+                            var appName = getAppNameFromFilename(filename);
+                            var displayName = getDisplayName(appName);
+                            var iconPath = getIconPath(appName);
+                            var iconFile = findIconFile(appName);
+                            var hasIcon = iconFile !== null;
                             // Use icon filename as display name when available
                             var itemName = displayName;
                             if (hasIcon) {
-                                const iconBase = iconFile.split("/").pop().replace(/\.\w+$/, "").replace(/\./g, "");
+                                var iconBase = iconFile.split("/").pop().replace(/\.\w+$/, "").replace(/\./g, "");
                                 if (iconBase.length > 0)
                                     itemName = iconBase.charAt(0).toUpperCase() + iconBase.slice(1);
                             }
@@ -223,7 +225,7 @@ Item {
                     }
 
                     loadSavedDesktopApps((saved) => {
-                        const allList = newList.concat(saved);
+                        var allList = newList.concat(saved);
                         appList = allList;
                         appCount = appList.length;
                         console.log("Total apps:", appCount);
@@ -238,20 +240,20 @@ Item {
     function extractIconsInBackground(apps) {
         if (apps.length === 0) return;
 
-        const app = apps[0];
-        const remaining = apps.slice(1);
+        var app = apps[0];
+        var remaining = apps.slice(1);
 
         extractAppImageIcon(app.path, app.appName, function(exitCode) {
-            const iconPath = getIconPath(app.appName);
-            const iconFile = findIconFile(app.appName);
-            const newList = appList.slice();
+            var iconPath = getIconPath(app.appName);
+            var iconFile = findIconFile(app.appName);
+            var newList = appList.slice();
             for (let i = 0; i < newList.length; i++) {
                 if (newList[i].path === app.path && !newList[i].isDesktop) {
                     newList[i].iconPath = iconPath;
                     newList[i].iconExtracted = true;
                     // Update display name to match the extracted icon filename
                     if (iconFile) {
-                        const iconBase = iconFile.split("/").pop().replace(/\.\w+$/, "").replace(/\./g, "");
+                        var iconBase = iconFile.split("/").pop().replace(/\.\w+$/, "").replace(/\./g, "");
                         if (iconBase.length > 0)
                             newList[i].name = iconBase.charAt(0).toUpperCase() + iconBase.slice(1);
                     }
@@ -293,7 +295,7 @@ Item {
             "load-iconsize",
             ["sh", "-c", "cat '" + iconSizeFile + "' 2>/dev/null || echo '36'"],
             (output, exitCode) => {
-                const val = parseInt(output.trim());
+                var val = parseInt(output.trim());
                 if (!isNaN(val) && val >= 20 && val <= 64)
                     iconSize = val;
             },
@@ -331,7 +333,7 @@ Item {
 
     function saveDesktopCache() {
         if (!cachedDesktopApps || cachedDesktopApps.length === 0) return;
-        const json = JSON.stringify(cachedDesktopApps);
+        var json = JSON.stringify(cachedDesktopApps);
         Proc.runCommand(
             "save-desktop-cache",
             ["sh", "-c", "mkdir -p '" + configDir + "' && echo '" + json.replace(/'/g, "'\\''") + "' > '" + desktopCacheFile + "'"],
@@ -344,9 +346,9 @@ Item {
     }
 
     function saveDesktopApps() {
-        const desktopApps = appList.filter((a) => a.isDesktop);
+        var desktopApps = appList.filter((a) => a.isDesktop);
         if (desktopApps.length === 0) return;
-        const json = JSON.stringify(desktopApps);
+        var json = JSON.stringify(desktopApps);
         Proc.runCommand(
             "save-desktop-apps",
             ["sh", "-c", "mkdir -p '" + configDir + "' && echo '" + json.replace(/'/g, "'\\''") + "' > '" + savedAppsFile + "'"],
@@ -365,7 +367,7 @@ Item {
             (output, exitCode) => {
                 if (exitCode === 0 && output && output.trim().length > 0) {
                     try {
-                        const saved = JSON.parse(output.trim());
+                        var saved = JSON.parse(output.trim());
                         if (Array.isArray(saved)) {
                             callback(saved);
                             return;
@@ -421,9 +423,9 @@ Item {
                         iconColor: Theme.surfaceVariantText
                         anchors.verticalCenter: parent.verticalCenter
                         onClicked: {
-                            const sizes = [28, 36, 48];
-                            const idx = sizes.indexOf(iconSize);
-                            iconSize = sizes[(idx + 1) % sizes.length];
+                            var sizes = [28, 36, 48];
+                            var idx = sizes.indexOf(root.iconSize);
+                            root.iconSize = sizes[(idx + 1) % sizes.length];
                         }
                     }
                 }
@@ -570,23 +572,6 @@ Item {
                         iconColor: Theme.primary
                         anchors.verticalCenter: parent.verticalCenter
                         onClicked: addDesktopApps()
-                    }
-
-                    Item { width: Theme.spacingM; height: 1 }
-
-                    DankActionButton {
-                        width: 28
-                        height: 28
-                        circular: false
-                        iconName: "format_size"
-                        iconSize: 16
-                        iconColor: Theme.surfaceText
-                        anchors.verticalCenter: parent.verticalCenter
-                        onClicked: {
-                            const sizes = [28, 36, 48];
-                            const idx = sizes.indexOf(iconSize);
-                            iconSize = sizes[(idx + 1) % sizes.length];
-                        }
                     }
                 }
 
@@ -747,7 +732,7 @@ Item {
     function loadDesktopApps() {
         if (!desktopAppsDirty && cachedDesktopApps !== null) {
             desktopAppsModel.clear();
-            const existingPaths = appList.map((a) => a.path);
+            var existingPaths = appList.map((a) => a.path);
             for (let i = 0; i < cachedDesktopApps.length; i++) {
                 if (existingPaths.indexOf(cachedDesktopApps[i].path) >= 0) continue;
                 desktopAppsModel.append(cachedDesktopApps[i]);
@@ -762,12 +747,12 @@ Item {
             (output, exitCode) => {
                 if (exitCode === 0 && output && output.trim().length > 0) {
                     try {
-                        const cached = JSON.parse(output.trim());
+                        var cached = JSON.parse(output.trim());
                         if (Array.isArray(cached) && cached.length > 0) {
                             cachedDesktopApps = cached;
                             desktopAppsDirty = false;
                             desktopAppsModel.clear();
-                            const existingPaths = appList.map((a) => a.path);
+                            var existingPaths = appList.map((a) => a.path);
                             for (let i = 0; i < cached.length; i++) {
                                 if (existingPaths.indexOf(cached[i].path) >= 0) continue;
                                 desktopAppsModel.append(cached[i]);
@@ -786,8 +771,8 @@ Item {
     }
 
     function scanDesktopAppsForPicker() {
-        const locale = Qt.locale().name;
-        const langCode = locale.split("_")[0];
+        var locale = Qt.locale().name;
+        var langCode = locale.split("_")[0];
 
         Proc.runCommand(
             "scan-desktop",
@@ -808,19 +793,19 @@ Item {
             (output, exitCode) => {
                 desktopAppsModel.clear();
                 if (exitCode === 0 && output && output.trim().length > 0) {
-                    const lines = output.trim().split("\n");
-                    const existingPaths = appList.map((a) => a.path);
+                    var lines = output.trim().split("\n");
+                    var existingPaths = appList.map((a) => a.path);
 
                     for (let i = 0; i < lines.length; i++) {
-                        const line = lines[i].trim();
+                        var line = lines[i].trim();
                         if (!line) continue;
-                        const parts = line.split("|");
+                        var parts = line.split("|");
                         if (parts.length >= 5) {
-                            const name = parts[0];
-                            const localName = parts[1];
-                            const fileName = parts[2];
-                            const icon = parts[3];
-                            const path = parts[4];
+                            var name = parts[0];
+                            var localName = parts[1];
+                            var fileName = parts[2];
+                            var icon = parts[3];
+                            var path = parts[4];
                             if (existingPaths.indexOf(path) >= 0) continue;
 
                             let iconPath = "";
@@ -860,7 +845,7 @@ Item {
     function addSelectedDesktopApps() {
         let newList = appList.slice();
         for (let i = 0; i < desktopAppsModel.count; i++) {
-            const item = desktopAppsModel.get(i);
+            var item = desktopAppsModel.get(i);
             if (item.selected) {
                 newList.push({
                     name: item.name,
@@ -888,10 +873,10 @@ Item {
     }
 
     function filterDesktopApps() {
-        const query = desktopSearchField ? desktopSearchField.text.toLowerCase() : "";
+        var query = desktopSearchField ? desktopSearchField.text.toLowerCase() : "";
         let items = [];
         for (let i = 0; i < desktopAppsModel.count; i++) {
-            const item = desktopAppsModel.get(i);
+            var item = desktopAppsModel.get(i);
             if (!query ||
                 item.name.toLowerCase().indexOf(query) >= 0 ||
                 (item.displayName && item.displayName.toLowerCase().indexOf(query) >= 0) ||
