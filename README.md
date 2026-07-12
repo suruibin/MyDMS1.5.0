@@ -47,11 +47,8 @@ DankMaterialShell/
 
 <div align="center">
 
-screenshots.png
-
+![Screenshot](https://raw.githubusercontent.com/suruibin/MyDMS1.5.0/main/screenshots.png)
 </div>
-
-
 
 ## 自定义增强功能
 
