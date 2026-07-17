@@ -11562,6 +11562,12 @@
     "comment": ""
   },
   {
+    "term": "Programs",
+    "context": "Programs",
+    "reference": "Modules/DankDash/DankDashPopout.qml:29",
+    "comment": ""
+  },
+  {
     "term": "PAM already provides fingerprint auth. Enable this to show it at login.",
     "context": "PAM already provides fingerprint auth. Enable this to show it at login.",
     "reference": "Modules/Settings/GreeterTab.qml:27",

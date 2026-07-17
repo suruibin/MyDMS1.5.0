@@ -190,7 +190,12 @@ Singleton {
     property int firstDayOfWeek: -1
     property bool showWeekNumber: false
     property string calendarBackend: "auto"
-    property bool use24HourClock: true
+    property string clockFormat: "auto"
+    readonly property bool localeUses24Hour: {
+        const fmt = Qt.locale().timeFormat(Locale.ShortFormat).replace(/'[^']*'/g, "");
+        return !/[aA]/.test(fmt);
+    }
+    readonly property bool use24HourClock: clockFormat === "24h" ? true : (clockFormat === "12h" ? false : localeUses24Hour)
     property bool showSeconds: false
     property bool padHours12Hour: false
     property bool useFahrenheit: false
@@ -492,9 +497,6 @@ Singleton {
     property bool greeterEnableFprint: false
     property bool greeterEnableU2f: false
     property string greeterWallpaperPath: ""
-    property bool greeterUse24HourClock: true
-    property bool greeterShowSeconds: false
-    property bool greeterPadHours12Hour: false
     property string greeterLockDateFormat: ""
     property string greeterFontFamily: ""
     property string greeterWallpaperFillMode: ""
@@ -518,6 +520,7 @@ Singleton {
     property var appDrawerSectionViewModes: ({})
     onAppDrawerSectionViewModesChanged: saveSettings()
     property bool niriOverviewOverlayEnabled: true
+    property string niriOverviewLauncherStyle: "full"
     property string dankLauncherV2Size: "compact"
     property bool dankLauncherV2ShowSourceBadges: true
     property bool dankLauncherV2BorderEnabled: false
@@ -556,11 +559,11 @@ Singleton {
             "enabled": true
         },
         {
-            "id": "programs",
+            "id": "weather",
             "enabled": true
         },
         {
-            "id": "weather",
+            "id": "programs",
             "enabled": true
         },
         {
@@ -620,10 +623,7 @@ Singleton {
     }
 
     function setDashTabEnabled(id, on) {
-        const current = getDashTabs();
-        if (!on && id !== "settings" && current.filter(t => t.enabled && t.id !== "settings").length <= 1)
-            return;
-        dashTabs = current.map(t => t.id === id ? {
+        dashTabs = getDashTabs().map(t => t.id === id ? {
                 "id": t.id,
                 "enabled": on
             } : t);
@@ -899,6 +899,10 @@ Singleton {
     readonly property bool greeterU2fReady: Processes.greeterU2fReady
     readonly property string greeterU2fReason: Processes.greeterU2fReason
     readonly property string greeterU2fSource: Processes.greeterU2fSource
+    property string lockPamPath: ""
+    property bool lockPamInlineFprint: false
+    property bool lockPamInlineU2f: false
+    property bool greeterPamExternallyManaged: false
     property string lockScreenInactiveColor: "#000000"
     property int lockScreenNotificationMode: 0
     property bool lockScreenVideoEnabled: false
@@ -960,6 +964,7 @@ Singleton {
     property int updaterIntervalSeconds: 1800
     property bool updaterIncludeFlatpak: true
     property bool updaterAllowAUR: true
+    property var updaterIgnoredPackages: []
 
     property string displayNameMode: "system"
     property var screenPreferences: ({})
@@ -1753,6 +1758,11 @@ Singleton {
                     }
                 }
                 delete obj.lockScreenActiveMonitor;
+            }
+
+            if (obj?.use24HourClock !== undefined && obj?.clockFormat === undefined) {
+                obj.clockFormat = obj.use24HourClock ? "24h" : "12h";
+                delete obj.use24HourClock;
             }
 
             Store.parse(root, obj);

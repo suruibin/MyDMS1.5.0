@@ -27,6 +27,7 @@ Item {
     property Item keyForwardTarget: null
     property var parentPopout: null
     property bool enableAnimation: false
+    property real accumulatedWheelDelta: 0
     property string homeDir: StandardPaths.writableLocation(StandardPaths.HomeLocation)
     property string selectedFileName: ""
     property var targetScreen: null
@@ -36,7 +37,6 @@ Item {
     property bool sortAscending: true
     // Forces the page grid to rebuild when the folder model reorders in place.
     property int gridRevision: 0
-    property real accumulatedWheelDelta: 0
 
     signal requestTabChange(int newIndex)
 
@@ -473,14 +473,12 @@ Item {
                     }
                 }
 
-                // Wheel scrolling for wallpaper page navigation
                 MouseArea {
                     anchors.fill: parent
                     acceptedButtons: Qt.NoButton
                     onWheel: {
-                        const threshold = 200;
+                        var threshold = 200;
                         root.accumulatedWheelDelta += wheel.angleDelta.y;
-
                         if (Math.abs(root.accumulatedWheelDelta) >= threshold) {
                             if (root.accumulatedWheelDelta > 0) {
                                 if (root.currentPage > 0) {
