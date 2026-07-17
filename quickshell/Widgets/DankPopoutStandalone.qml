@@ -84,7 +84,7 @@ Item {
     readonly property bool backgroundDismissWindowRequired: backgroundInteractive
     readonly property bool backgroundWindowRequired: backgroundDismissWindowRequired || root.overlayContent !== null
     readonly property bool _fullHeight: fullHeightSurface
-    readonly property var effectivePopoutLayer: LayerShell.fromEnv("DMS_POPOUT_LAYER", root.triggerUsesOverlayLayer ? WlrLayer.Overlay : WlrLayer.Top, {
+    readonly property var effectivePopoutLayer: LayerShell.fromEnv("DMS_POPOUT_LAYER", WlrLayer.Top, {
         "allow": ["top", "overlay"],
         "invalidLayer": WlrLayer.Top,
         "label": "popouts"
