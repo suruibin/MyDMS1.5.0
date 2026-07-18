@@ -240,6 +240,8 @@ Singleton {
     onBlurForegroundLayersChanged: saveSettings()
     property real blurLayerOutlineOpacity: 0.12
     onBlurLayerOutlineOpacityChanged: saveSettings()
+    property bool blurBorderEnabled: true
+    onBlurBorderEnabledChanged: saveSettings()
     property string blurBorderColor: "outline"
     onBlurBorderColorChanged: saveSettings()
     property string blurBorderCustomColor: "#ffffff"
@@ -863,6 +865,7 @@ Singleton {
     property bool notificationOverlayEnabled: false
     property bool notificationPopupShadowEnabled: true
     property bool notificationPopupPrivacyMode: false
+    property bool notificationForegroundLayers: true
     property int overviewRows: 2
     property int overviewColumns: 5
     property real overviewScale: 0.16
@@ -902,6 +905,8 @@ Singleton {
     property string lockPamPath: ""
     property bool lockPamInlineFprint: false
     property bool lockPamInlineU2f: false
+    property bool lockPamExternallyManaged: false
+    property string lockU2fPamPath: ""
     property bool greeterPamExternallyManaged: false
     property string lockScreenInactiveColor: "#000000"
     property int lockScreenNotificationMode: 0

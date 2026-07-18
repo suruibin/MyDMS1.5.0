@@ -561,13 +561,13 @@ Item {
         id: backgroundWindow
         screen: root.screen
         visible: false
-        color: "transparent"
+        color: "#30000000"
         // Skip buffer updates when there's nothing to render. Briefly flipped
         // true via _bgCommitWindow when _surfaceBodyW/H changes so the
         // contentHoleRect mask carve-out actually commits to the compositor.
         updatesEnabled: !root._blurCommitSuppress && (root.overlayContent !== null || root._bgCommitWindow)
 
-        WlrLayershell.namespace: root.layerNamespace + ":background"
+        WlrLayershell.namespace: "dms-bg:" + root.layerNamespace
         WlrLayershell.layer: root.effectivePopoutLayer
         WlrLayershell.exclusiveZone: -1
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.None

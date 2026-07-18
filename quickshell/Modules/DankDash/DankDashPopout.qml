@@ -27,7 +27,7 @@ DankPopout {
             },
             "programs": {
                 "icon": "apps",
-                "text": I18n.tr("Programs", "程序列表")
+                "text": I18n.tr("Programs")
             },
             "weather": {
                 "icon": "wb_sunny",
